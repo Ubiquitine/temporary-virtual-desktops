@@ -1,43 +1,21 @@
 var busy = false;
 
-function addDesktop() {
-    workspace.desktops += 1;
-}
-
-function moveWindows(desktop) {
-    workspace.clientList().filter(function(window) {
-        return window.desktop > desktop;
-    }).forEach(function(window) {
-        window.desktop -= 1;
-    });
-}
-
-function removeDesktop(desktop) {
-    if (desktop != undefined &&
-        desktop < workspace.desktops) {
-        moveWindows(desktop);
-    }
-    workspace.desktops -= 1;
-}
-
 function isDesktopEmpty(desktop) {
-    for (var i in workspace.clientList()) {
-        var window = workspace.clientList()[i];
-        if (window.desktop == desktop && !window.skipTaskbar) {
+    for (var i in workspace.windowList()) {
+        var window = workspace.windowList()[i];
+        if (window.desktops.includes(desktop) && !window.skipTaskbar) {
             return false;
         }
     }
     return true;
 }
 
-function getEmptyDesktops() {
-    var emptyDesktops = [];
-    for (var i = 1; i <= workspace.desktops; i++) {
-        if (isDesktopEmpty(i)) {
-            emptyDesktops.push(i);
-        }
+function renameDesktops() {
+    for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
+        var d = workspace.desktops[i];
+        var n = i + 1;
+        d.name = 'Desktop ' + n ;
     }
-    return emptyDesktops;
 }
 
 function balanceDesktops() {
@@ -47,15 +25,12 @@ function balanceDesktops() {
 
     busy = true;
 
-    var emptyDesktops = getEmptyDesktops();
-    if (emptyDesktops.length == 0) {
-        addDesktop();
+    for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
+        if (isDesktopEmpty(workspace.desktops[i])){
+             workspace.removeDesktop(workspace.desktops[i]);
+        }
     }
-    while (emptyDesktops.length > 1) {
-        var desktop = emptyDesktops.shift();
-        removeDesktop(desktop);
-    }
-    
+    renameDesktops();
     busy = false;
 }
 
@@ -68,10 +43,10 @@ function update() {
 }
 
 function connectSignals() {
-    workspace.clientAdded.connect(update);
-    workspace.clientRemoved.connect(update);
-    workspace.numberDesktopsChanged.connect(update);
-    workspace.desktopPresenceChanged.connect(update);
+    workspace.windowAdded.connect(update);
+    workspace.windowRemoved.connect(update);
+    workspace.desktopsChanged.connect(update);
+    workspace.currentDesktopChanged.connect(update);
 }
 
 function main() {
@@ -80,3 +55,4 @@ function main() {
 }
 
 main();
+

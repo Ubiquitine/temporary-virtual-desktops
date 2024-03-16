@@ -1,0 +1,24 @@
+{
+    "KPlugin": {
+        "Name": "Temporary Virtual Desktops",
+        "Description": "Automatically purges emptyu virtual desktops",
+        "Icon": "preferences-desktop-virtual",
+
+        "Authors": [
+            {
+                "Name": "Berlioz-Ubiquitus"
+            },
+            {
+                "Name": "wsdfhjxc"
+            }
+        ],
+        "Id": "temporary-virtual-desktops",
+        "Version": "0.1",
+        "License": "GPLv3",
+        "EnabledByDefault": false
+    },
+    "X-Plasma-API": "javascript",
+    "X-Plasma-MainScript": "code/main.js",
+    "KPackageStructure": "KWin/Script"
+}
+
