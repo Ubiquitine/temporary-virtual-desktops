@@ -13,11 +13,12 @@
             }
         ],
         "Id": "temporary-virtual-desktops",
-        "Version": "0.1",
+        "Version": "0.2",
         "License": "GPLv3",
         "EnabledByDefault": false
     },
     "X-Plasma-API": "javascript",
+    "X-KDE-ConfigModule": "kwin/effects/configs/kcm_kwin4_genericscripted",
     "X-Plasma-MainScript": "code/main.js",
     "KPackageStructure": "KWin/Script"
 }

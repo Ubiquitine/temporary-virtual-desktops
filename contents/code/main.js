@@ -1,4 +1,5 @@
 var busy = false;
+var oneSpare = readConfig("oneSpare", false);
 
 function isDesktopEmpty(desktop) {
     for (var i in workspace.windowList()) {
@@ -25,9 +26,20 @@ function balanceDesktops() {
 
     busy = true;
 
-    for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
-        if (isDesktopEmpty(workspace.desktops[i])){
-             workspace.removeDesktop(workspace.desktops[i]);
+    if (oneSpare == true) {
+        for (var i = 1 ; i < workspace.desktops.length - 1 ; i++ ) {
+            if (isDesktopEmpty(workspace.desktops[i])){
+                workspace.removeDesktop(workspace.desktops[i]);
+            }
+        }
+        if (!isDesktopEmpty(workspace.desktops[workspace.desktops.length - 1])){
+            workspace.createDesktop(workspace.desktops.length, '')
+        }
+    } else {
+        for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
+            if (isDesktopEmpty(workspace.desktops[i])){
+                workspace.removeDesktop(workspace.desktops[i]);
+            }
         }
     }
     renameDesktops();
