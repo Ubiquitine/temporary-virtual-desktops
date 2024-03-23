@@ -12,10 +12,13 @@ function isDesktopEmpty(desktop) {
 }
 
 function renameDesktops() {
+    var n = 1;
     for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
         var d = workspace.desktops[i];
-        var n = i + 1;
-        d.name = 'Desktop ' + n ;
+        if (/^Desktop\ ([0-9]{1,})$/.test(d.name)) {
+            n++;
+            d.name = 'Desktop ' + n ;
+        }
     }
 }
 
