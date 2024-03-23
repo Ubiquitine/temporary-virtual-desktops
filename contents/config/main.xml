@@ -8,6 +8,9 @@
     <entry name="oneSpare" type="bool">
       <default>false</default>
     </entry>
+    <entry name="backHome" type="bool">
+      <default>false</default>
+    </entry>
   </group>
 
 </kcfg>

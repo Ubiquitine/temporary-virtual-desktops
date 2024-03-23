@@ -1,5 +1,6 @@
 var busy = false;
 var oneSpare = readConfig("oneSpare", false);
+var backHome = readConfig("backHome", false);
 
 function isDesktopEmpty(desktop) {
     for (var i in workspace.windowList()) {
@@ -9,6 +10,13 @@ function isDesktopEmpty(desktop) {
         }
     }
     return true;
+}
+
+function deleteDesktop(desktop) {
+    if (workspace.currentDesktop == desktop && backHome){
+        workspace.currentDesktop = workspace.desktops[0];
+    }
+    workspace.removeDesktop(desktop);
 }
 
 function renameDesktops() {
@@ -29,10 +37,10 @@ function balanceDesktops() {
 
     busy = true;
 
-    if (oneSpare == true) {
+    if (oneSpare) {
         for (var i = 1 ; i < workspace.desktops.length - 1 ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i])){
-                workspace.removeDesktop(workspace.desktops[i]);
+                deleteDesktop(workspace.desktops[i]);
             }
         }
         if (!isDesktopEmpty(workspace.desktops[workspace.desktops.length - 1])){
@@ -41,7 +49,7 @@ function balanceDesktops() {
     } else {
         for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i])){
-                workspace.removeDesktop(workspace.desktops[i]);
+                deleteDesktop(workspace.desktops[i]);
             }
         }
     }
