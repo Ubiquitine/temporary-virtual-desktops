@@ -5,7 +5,7 @@ var backHome = readConfig("backHome", false);
 function isDesktopEmpty(desktop) {
     for (var i in workspace.windowList()) {
         var window = workspace.windowList()[i];
-        if (window.desktops.includes(desktop) && !window.skipTaskbar) {
+        if (window.desktops.includes(desktop) && window.normalWindow && !window.skipTaskbar) {
             return false;
         }
     }
@@ -66,8 +66,18 @@ function update() {
 }
 
 function connectSignals() {
-    workspace.windowAdded.connect(update);
-    workspace.windowRemoved.connect(update);
+    workspace.windowAdded.connect(window => {
+        // Check if the window is normal.
+        if (window !== null && window.normalWindow){
+            update;
+        }
+    });
+    workspace.windowRemoved.connect(window => {
+        // Check if the window is normal.
+        if (window !== null && window.normalWindow){
+            update;
+        }
+    });
     workspace.desktopsChanged.connect(update);
     workspace.currentDesktopChanged.connect(update);
 }

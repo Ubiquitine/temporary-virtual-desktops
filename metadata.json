@@ -13,7 +13,7 @@
             }
         ],
         "Id": "temporary-virtual-desktops",
-        "Version": "0.3",
+        "Version": "0.3.1",
         "License": "GPLv3",
         "EnabledByDefault": false
     },
