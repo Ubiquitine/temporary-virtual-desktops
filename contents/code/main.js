@@ -12,6 +12,13 @@ function isDesktopEmpty(desktop) {
     return true;
 }
 
+/**
+ * Closing focused desktops is allowed only if backHome is enabled
+ */
+function mayCloseDesktop(desktop) {
+    return workspace.currentDesktop != desktop || backHome;
+}
+
 function deleteDesktop(desktop) {
     if (workspace.currentDesktop == desktop && backHome){
         workspace.currentDesktop = workspace.desktops[0];
@@ -39,7 +46,7 @@ function balanceDesktops() {
 
     if (oneSpare) {
         for (var i = 0 ; i < workspace.desktops.length - 1 ; i++ ) {
-            if (isDesktopEmpty(workspace.desktops[i])){
+            if (isDesktopEmpty(workspace.desktops[i]) && mayCloseDesktop(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }
         }
@@ -48,7 +55,7 @@ function balanceDesktops() {
         }
     } else {
         for (var i = 0 ; i < workspace.desktops.length ; i++ ) {
-            if (isDesktopEmpty(workspace.desktops[i])){
+            if (isDesktopEmpty(workspace.desktops[i]) && mayCloseDesktop(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }   
         }
