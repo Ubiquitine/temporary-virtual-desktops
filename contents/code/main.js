@@ -69,13 +69,13 @@ function connectSignals() {
     workspace.windowAdded.connect(window => {
         // Check if the window is normal.
         if (window !== null && window.normalWindow){
-            update;
+            update();
         }
     });
     workspace.windowRemoved.connect(window => {
         // Check if the window is normal.
         if (window !== null && window.normalWindow){
-            update;
+            update();
         }
     });
     workspace.desktopsChanged.connect(update);
