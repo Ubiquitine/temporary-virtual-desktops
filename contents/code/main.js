@@ -21,11 +21,11 @@ function deleteDesktop(desktop) {
 
 function renameDesktops() {
     var n = 1;
-    for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
+    for (var i = 0 ; i < workspace.desktops.length ; i++ ) {
         var d = workspace.desktops[i];
         if (/^Desktop\ ([0-9]{1,})$/.test(d.name)) {
-            n++;
             d.name = 'Desktop ' + n ;
+            n++;
         }
     }
 }
@@ -38,7 +38,7 @@ function balanceDesktops() {
     busy = true;
 
     if (oneSpare) {
-        for (var i = 1 ; i < workspace.desktops.length - 1 ; i++ ) {
+        for (var i = 0 ; i < workspace.desktops.length - 1 ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }
@@ -47,10 +47,10 @@ function balanceDesktops() {
             workspace.createDesktop(workspace.desktops.length, '')
         }
     } else {
-        for (var i = 1 ; i < workspace.desktops.length ; i++ ) {
+        for (var i = 0 ; i < workspace.desktops.length ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
-            }
+            }   
         }
     }
     renameDesktops();
