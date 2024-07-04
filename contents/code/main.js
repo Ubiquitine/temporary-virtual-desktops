@@ -19,6 +19,15 @@ function mayCloseDesktop(desktop) {
     return workspace.currentDesktop != desktop || backHome;
 }
 
+/**
+ * Should last desktop be closed because second to last is empty?
+ */
+function shouldCloseLastDesktop() {
+    return workspace.desktops.length >= 2 
+        && isDesktopEmpty(workspace.desktops[workspace.desktops.length - 2])
+        && mayCloseDesktop(workspace.desktops[workspace.desktops.length - 1]);
+}
+
 function deleteDesktop(desktop) {
     if (workspace.currentDesktop == desktop && backHome){
         workspace.currentDesktop = workspace.desktops[0];
@@ -50,7 +59,10 @@ function balanceDesktops() {
                 deleteDesktop(workspace.desktops[i]);
             }
         }
-        if (!isDesktopEmpty(workspace.desktops[workspace.desktops.length - 1])){
+
+        if (shouldCloseLastDesktop()) {
+            deleteDesktop(workspace.desktops[workspace.desktops.length - 1]);
+        } else if (!isDesktopEmpty(workspace.desktops[workspace.desktops.length - 1])){
             workspace.createDesktop(workspace.desktops.length, '')
         }
     } else {
