@@ -1,7 +1,7 @@
 {
     "KPlugin": {
         "Name": "Temporary Virtual Desktops",
-        "Description": "Automatically purges emptyu virtual desktops",
+        "Description": "Automatically purges empty virtual desktops",
         "Icon": "preferences-desktop-virtual",
 
         "Authors": [
