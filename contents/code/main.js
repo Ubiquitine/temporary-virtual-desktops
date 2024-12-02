@@ -1,8 +1,12 @@
 var busy = false;
 var oneSpare = readConfig("oneSpare", false);
 var backHome = readConfig("backHome", false);
+var keepAtLeastTwoDesktops = readConfig("keepAtLeastTwoDesktops", false);
 
 function isDesktopEmpty(desktop) {
+    if (keepAtLeastTwoDesktops && workspace.desktops[0] == desktop) {
+        return false;
+    }
     for (var i in workspace.windowList()) {
         var window = workspace.windowList()[i];
         if (window.desktops.includes(desktop) && window.normalWindow && !window.skipTaskbar) {
@@ -54,7 +58,7 @@ function balanceDesktops() {
     busy = true;
 
     if (oneSpare) {
-        for (var i = 0 ; i < workspace.desktops.length - 1 ; i++ ) {
+        for (var i = keepAtLeastTwoDesktops ? 1 : 0 ; i < workspace.desktops.length - 1 ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i]) && mayCloseDesktop(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }

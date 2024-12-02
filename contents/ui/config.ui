@@ -34,6 +34,16 @@
      </property>
     </widget>
    </item>
+   <item row="2" column="0">
+    <widget class="QCheckBox" name="kcfg_keepAtLeastTwoDesktops">
+     <property name="text">
+      <string>Keep atleast 2 empty desktops on startup</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <resources/>
