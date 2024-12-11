@@ -11,7 +11,7 @@
     <entry name="backHome" type="bool">
       <default>false</default>
     </entry>
-    <entry name="kepFirst" type="bool">
+    <entry name="keepFirst" type="bool">
       <default>false</default>
     </entry>
   </group>
