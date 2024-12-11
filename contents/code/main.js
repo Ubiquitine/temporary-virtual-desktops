@@ -1,6 +1,7 @@
 var busy = false;
 var oneSpare = readConfig("oneSpare", false);
 var backHome = readConfig("backHome", false);
+var keepFirst = readConfig("keepFirst", false);
 
 function isDesktopEmpty(desktop) {
     for (var i in workspace.windowList()) {
@@ -53,8 +54,14 @@ function balanceDesktops() {
 
     busy = true;
 
+    var startIndex = 0;
+
+    if (keepFirst) {
+        startIndex = 1;
+    }
+
     if (oneSpare) {
-        for (var i = 0 ; i < workspace.desktops.length - 1 ; i++ ) {
+        for (var i = startIndex ; i < workspace.desktops.length - 1 ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i]) && mayCloseDesktop(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }
@@ -66,7 +73,7 @@ function balanceDesktops() {
             workspace.createDesktop(workspace.desktops.length, '')
         }
     } else {
-        for (var i = 0 ; i < workspace.desktops.length ; i++ ) {
+        for (var i = startIndex ; i < workspace.desktops.length ; i++ ) {
             if (isDesktopEmpty(workspace.desktops[i]) && mayCloseDesktop(workspace.desktops[i])){
                 deleteDesktop(workspace.desktops[i]);
             }   

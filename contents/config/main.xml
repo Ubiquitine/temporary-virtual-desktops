@@ -11,6 +11,9 @@
     <entry name="backHome" type="bool">
       <default>false</default>
     </entry>
+    <entry name="kepFirst" type="bool">
+      <default>false</default>
+    </entry>
   </group>
 
 </kcfg>

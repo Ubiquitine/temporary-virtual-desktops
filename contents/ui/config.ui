@@ -25,6 +25,16 @@
     </widget>
    </item>
    <item row="1" column="0">
+    <widget class="QCheckBox" name="kcfg_keepFirst">
+     <property name="text">
+      <string>Keep the first desktop even if it's empty</string>
+     </property>
+     <property name="checked">
+      <bool>false</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
     <widget class="QCheckBox" name="kcfg_backHome">
      <property name="text">
       <string>Return to first desktop when current desktop is deleted</string>
