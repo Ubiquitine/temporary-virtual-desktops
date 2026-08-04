@@ -1,50 +1,164 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
  <class>KWin::TemporaryVirtualDesktopsConfigForm</class>
+
  <widget class="QWidget" name="KWin::TemporaryVirtualDesktopsConfigForm">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>334</width>
-    <height>59</height>
-   </rect>
-  </property>
   <property name="windowTitle">
    <string>Temporary Virtual Desktops</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0">
-    <widget class="QCheckBox" name="kcfg_oneSpare">
-     <property name="text">
-      <string>Keep one spare empty desktop</string>
+
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <property name="spacing">
+    <number>12</number>
+   </property>
+   <property name="leftMargin">
+    <number>12</number>
+   </property>
+   <property name="topMargin">
+    <number>12</number>
+   </property>
+   <property name="rightMargin">
+    <number>12</number>
+   </property>
+   <property name="bottomMargin">
+    <number>12</number>
+   </property>
+
+   <!-- Description -->
+   <item>
+    <widget class="QLabel" name="descriptionLabel">
+     <property name="wordWrap">
+      <bool>true</bool>
      </property>
-     <property name="checked">
-      <bool>false</bool>
+     <property name="text">
+      <string>Configure how temporary virtual desktops are created and removed.</string>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: palette(mid);</string>
      </property>
     </widget>
    </item>
-   <item row="1" column="0">
-    <widget class="QCheckBox" name="kcfg_keepFirst">
-     <property name="text">
-      <string>Keep the first desktop even if it's empty</string>
+
+   <!-- Behaviour -->
+   <item>
+    <widget class="QGroupBox" name="behaviorGroup">
+     <property name="title">
+      <string>Behavior</string>
      </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
+
+     <layout class="QVBoxLayout" name="behaviorLayout">
+
+      <item>
+       <widget class="QCheckBox" name="kcfg_oneSpare">
+        <property name="text">
+         <string>Keep one spare empty desktop</string>
+        </property>
+        <property name="toolTip">
+         <string>Always maintain one unused virtual desktop ready for new windows.</string>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <widget class="QCheckBox" name="kcfg_keepFirst">
+        <property name="text">
+         <string>Never remove the first desktop</string>
+        </property>
+        <property name="toolTip">
+         <string>The first virtual desktop will remain even if it becomes empty.</string>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <widget class="QCheckBox" name="kcfg_backHome">
+        <property name="text">
+         <string>Return to the first desktop when the current one is removed</string>
+        </property>
+        <property name="toolTip">
+         <string>Automatically switch back to Desktop 1 if the current desktop disappears.</string>
+        </property>
+       </widget>
+      </item>
+
+     </layout>
     </widget>
    </item>
-   <item row="2" column="0">
-    <widget class="QCheckBox" name="kcfg_backHome">
-     <property name="text">
-      <string>Return to first desktop when current desktop is deleted</string>
+
+   <!-- Timing -->
+   <item>
+    <widget class="QGroupBox" name="timingGroup">
+     <property name="title">
+      <string>Timing</string>
      </property>
-     <property name="checked">
-      <bool>false</bool>
-     </property>
+
+     <layout class="QHBoxLayout" name="timingLayout">
+
+      <item>
+       <widget class="QLabel" name="delayLabel">
+        <property name="text">
+         <string>Update delay:</string>
+        </property>
+        <property name="buddy">
+         <cstring>kcfg_updateDelay</cstring>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <widget class="QSpinBox" name="kcfg_updateDelay">
+        <property name="minimum">
+         <number>100</number>
+        </property>
+        <property name="maximum">
+         <number>5000</number>
+        </property>
+        <property name="singleStep">
+         <number>50</number>
+        </property>
+        <property name="suffix">
+         <string> ms</string>
+        </property>
+        <property name="toolTip">
+         <string>Delay before updating virtual desktops after a window change.</string>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <spacer name="horizontalSpacer">
+        <property name="orientation">
+         <enum>Qt::Horizontal</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>40</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+
+     </layout>
     </widget>
    </item>
+
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+
   </layout>
  </widget>
+
  <resources/>
 </ui>
