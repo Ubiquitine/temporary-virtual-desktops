@@ -14,6 +14,9 @@
     <entry name="keepFirst" type="bool">
       <default>false</default>
     </entry>
+    <entry name="updateDelay" type="int">
+      <default>700</default>
+    </entry>
   </group>
 
 </kcfg>

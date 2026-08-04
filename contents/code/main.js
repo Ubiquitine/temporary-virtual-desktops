@@ -2,6 +2,7 @@ var busy = false;
 var oneSpare = readConfig("oneSpare", false);
 var backHome = readConfig("backHome", false);
 var keepFirst = readConfig("keepFirst", false);
+var updateDelay = readConfig("updateDelay", 1000)
 
 function isDesktopEmpty(desktop) {
     if (keepFirst) {
@@ -84,7 +85,7 @@ function balanceDesktops() {
 
 function update() {
     var timer = new QTimer();
-    timer.interval = 100;
+    timer.interval = updateDelay;
     timer.singleShot = true;
     timer.timeout.connect(balanceDesktops);
     timer.start();
