@@ -85,63 +85,120 @@
     </widget>
    </item>
 
-   <!-- Timing -->
-   <item>
-    <widget class="QGroupBox" name="timingGroup">
-     <property name="title">
-      <string>Timing</string>
-     </property>
+    <!-- Timing -->
+    <item>
+     <widget class="QGroupBox" name="timingGroup">
+      <property name="title">
+       <string>Timing</string>
+      </property>
 
-     <layout class="QHBoxLayout" name="timingLayout">
+      <layout class="QVBoxLayout" name="timingLayout">
+       <property name="spacing">
+        <number>6</number>
+       </property>
 
-      <item>
-       <widget class="QLabel" name="delayLabel">
-        <property name="text">
-         <string>Update delay:</string>
-        </property>
-        <property name="buddy">
-         <cstring>kcfg_updateDelay</cstring>
-        </property>
-       </widget>
-      </item>
+       <!-- Update delay -->
+       <item>
+        <layout class="QHBoxLayout" name="updateDelayLayout">
+         <item>
+          <widget class="QLabel" name="updateDelayLabel">
+           <property name="text">
+            <string>Update delay:</string>
+           </property>
+           <property name="buddy">
+            <cstring>kcfg_updateDelay</cstring>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="kcfg_updateDelay">
+           <property name="minimum">
+            <number>100</number>
+           </property>
+           <property name="maximum">
+            <number>5000</number>
+           </property>
+           <property name="singleStep">
+            <number>50</number>
+           </property>
+           <property name="suffix">
+            <string> ms</string>
+           </property>
+           <property name="toolTip">
+            <string>Delay before updating virtual desktops after a window change.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="updateDelaySpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
 
-      <item>
-       <widget class="QSpinBox" name="kcfg_updateDelay">
-        <property name="minimum">
-         <number>100</number>
-        </property>
-        <property name="maximum">
-         <number>5000</number>
-        </property>
-        <property name="singleStep">
-         <number>50</number>
-        </property>
-        <property name="suffix">
-         <string> ms</string>
-        </property>
-        <property name="toolTip">
-         <string>Delay before updating virtual desktops after a window change.</string>
-        </property>
-       </widget>
-      </item>
+       <!-- Desktop / animation protection -->
+       <item>
+        <layout class="QHBoxLayout" name="createProtectionLayout">
+         <item>
+          <widget class="QLabel" name="createProtectionLabel">
+           <property name="text">
+            <string>Animation protection:</string>
+           </property>
+           <property name="buddy">
+            <cstring>kcfg_createProtectionGrace</cstring>
+           </property>
+           <property name="toolTip">
+            <string>Hold off deleting desktops while another script is mid desktop-switch animation (e.g. macsimize6 sets onAllDesktops during smoothAnimationTime). Also protects brand-new desktops for this long. Set this to at least macsimize6's smooth animation time. Set to 0 to disable.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QSpinBox" name="kcfg_createProtectionGrace">
+           <property name="minimum">
+            <number>0</number>
+           </property>
+           <property name="maximum">
+            <number>10000</number>
+           </property>
+           <property name="singleStep">
+            <number>50</number>
+           </property>
+           <property name="suffix">
+            <string> ms</string>
+           </property>
+           <property name="toolTip">
+            <string>Hold off deleting desktops while another script is mid desktop-switch animation (e.g. macsimize6 sets onAllDesktops during smoothAnimationTime). Also protects brand-new desktops for this long. Set this to at least macsimize6's smooth animation time. Set to 0 to disable.</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <spacer name="createProtectionSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
 
-      <item>
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-
-     </layout>
-    </widget>
-   </item>
+      </layout>
+     </widget>
+    </item>
 
    <item>
     <spacer name="verticalSpacer">
