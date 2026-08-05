@@ -15,7 +15,10 @@
       <default>false</default>
     </entry>
     <entry name="updateDelay" type="int">
-      <default>700</default>
+      <default>1000</default>
+    </entry>
+    <entry name="createProtectionGrace" type="int">
+      <default>1500</default>
     </entry>
   </group>
 
