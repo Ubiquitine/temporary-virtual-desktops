@@ -135,12 +135,38 @@ function deleteDesktop(desktop) {
     workspace.removeDesktop(desktop);
 }
 
+/**
+ * Prefixes of the names KWin gives desktops by default. KWin names them
+ * i18n("Desktop %1"), so outside English the prefix is translated
+ * ("Bureau 2", "デスクトップ 2") and cannot be hard-coded; it is learnt from
+ * desktops whose name ends in their own position (see learnDefaultName).
+ */
+var defaultNamePrefixes = ['Desktop '];
+
+function learnDefaultName(desktop, position) {
+    var m = /^(.*[^0-9])([0-9]+)$/.exec(desktop.name);
+    if (m && parseInt(m[2], 10) === position && defaultNamePrefixes.indexOf(m[1]) < 0)
+        defaultNamePrefixes.push(m[1]);
+}
+
+function defaultNamePrefix(name) {
+    for (var i = 0; i < defaultNamePrefixes.length; i++) {
+        var prefix = defaultNamePrefixes[i];
+        if (name.length > prefix.length && name.indexOf(prefix) === 0
+            && /^[0-9]+$/.test(name.substring(prefix.length)))
+            return prefix;
+    }
+    return null;
+}
+
 function renameDesktops() {
     var n = 1;
     for (var i = 0; i < workspace.desktops.length; i++) {
         var d = workspace.desktops[i];
-        if (/^Desktop\ ([0-9]{1,})$/.test(d.name)) {
-            d.name = 'Desktop ' + n;
+        var prefix = defaultNamePrefix(d.name);
+        if (prefix !== null) {
+            if (d.name !== prefix + n)
+                d.name = prefix + n;
             n++;
         }
     }
@@ -195,8 +221,10 @@ function recordNewDesktops() {
     for (var i = 0; i < workspace.desktops.length; i++) {
         var d = workspace.desktops[i];
         activeIds[d.id] = true;
-        if (!(d.id in desktopCreationTime))
+        if (!(d.id in desktopCreationTime)) {
             desktopCreationTime[d.id] = now;
+            learnDefaultName(d, i + 1);
+        }
     }
 
     for (var id in desktopCreationTime) {
@@ -250,8 +278,10 @@ function main() {
     var now = Date.now();
 
     // Existing desktops are not "new".
-    for (var i = 0; i < workspace.desktops.length; i++)
+    for (var i = 0; i < workspace.desktops.length; i++) {
         desktopCreationTime[workspace.desktops[i].id] = now - createProtectionGrace - 1;
+        learnDefaultName(workspace.desktops[i], i + 1);
+    }
 
     // Existing sticky windows must not look like an in-progress animation.
     refreshOnAllDesktopsTracking();
